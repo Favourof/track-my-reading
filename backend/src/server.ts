@@ -33,7 +33,7 @@ fastify.register(backupRoutes, { prefix: '/api/backup' });
 fastify.register(aiRoutes, { prefix: '/api/ai' });
 
 // Global Error Handler
-fastify.setErrorHandler((error, request, reply) => {
+fastify.setErrorHandler((error: any, request, reply) => {
   fastify.log.error(error);
 
   if (error instanceof AppError) {

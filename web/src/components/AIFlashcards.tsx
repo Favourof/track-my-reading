@@ -72,16 +72,16 @@ export default function AIFlashcards() {
   if (!flashcards) return <div className="animate-pulse h-64 bg-slate-800/50 rounded-2xl"></div>;
 
   return (
-    <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6">
+    <div className="bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-sm">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Brain className="text-purple-400 w-6 h-6" />
+        <h2 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2 uppercase tracking-tight">
+          <Brain className="text-[#00E5FF] w-6 h-6" />
           AI Flashcards
         </h2>
         <button
           onClick={handleGenerate}
           disabled={isGenerating}
-          className="flex items-center gap-2 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 py-2 px-4 rounded-xl transition-all border border-purple-500/30"
+          className="flex items-center gap-2 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5 text-slate-900 dark:text-white py-2 px-4 rounded-full transition-all border border-slate-300 dark:border-white/20 font-bold text-sm"
         >
           <Sparkles className="w-4 h-4" />
           {isGenerating ? "Generating..." : "Generate from Notes"}
@@ -89,28 +89,28 @@ export default function AIFlashcards() {
       </div>
 
       {flashcards.length === 0 ? (
-        <div className="text-center py-12 border border-slate-700/30 border-dashed rounded-xl">
-          <Brain className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-          <p className="text-slate-400">No flashcards yet. Read and add notes to generate some!</p>
+        <div className="text-center py-12 border border-slate-200 dark:border-white/10 border-dashed rounded-2xl bg-slate-50 dark:bg-[#1a1a1a]">
+          <Brain className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-4" />
+          <p className="text-slate-500 dark:text-slate-400 font-medium">No flashcards yet. Read and add notes to generate some!</p>
         </div>
       ) : (
         <div className="relative">
           <div 
             onClick={() => setShowAnswer(!showAnswer)}
-            className="w-full max-w-2xl mx-auto h-64 perspective-1000 cursor-pointer group"
+            className="w-full max-w-2xl mx-auto h-64 [perspective:1000px] cursor-pointer group"
           >
-            <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${showAnswer ? 'rotate-y-180' : ''}`}>
+            <div className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] ${showAnswer ? '[transform:rotateY(180deg)]' : ''}`}>
               {/* Front */}
-              <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-xl border border-slate-600/50">
-                <span className="absolute top-4 left-4 text-xs font-semibold text-purple-400 bg-purple-400/10 px-3 py-1 rounded-full">Question</span>
-                <p className="text-xl md:text-2xl font-medium text-white">{flashcards[activeCardIndex].question}</p>
-                <p className="absolute bottom-4 text-xs text-slate-500 group-hover:text-slate-400 transition-colors">Click to reveal answer</p>
+              <div className="absolute inset-0 [backface-visibility:hidden] bg-slate-50 dark:bg-[#1a1a1a] rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-sm border border-slate-200 dark:border-white/10">
+                <span className="absolute top-4 left-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Question</span>
+                <p className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">{flashcards[activeCardIndex].question}</p>
+                <p className="absolute bottom-4 text-xs text-slate-400 dark:text-slate-500 font-medium">Click to reveal answer</p>
               </div>
               
               {/* Back */}
-              <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-purple-900 to-slate-900 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-xl border border-purple-500/30 rotate-y-180">
-                <span className="absolute top-4 left-4 text-xs font-semibold text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">Answer</span>
-                <p className="text-lg md:text-xl text-white leading-relaxed">{flashcards[activeCardIndex].answer}</p>
+              <div className="absolute inset-0 [backface-visibility:hidden] bg-white dark:bg-[#222222] rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-sm border border-slate-200 dark:border-white/10 [transform:rotateY(180deg)]">
+                <span className="absolute top-4 left-4 text-xs font-bold text-[#00E5FF] uppercase tracking-widest">Answer</span>
+                <p className="text-lg md:text-xl text-slate-800 dark:text-slate-200 font-medium leading-relaxed">{flashcards[activeCardIndex].answer}</p>
               </div>
             </div>
           </div>
@@ -119,17 +119,17 @@ export default function AIFlashcards() {
             <button 
               onClick={prevCard} 
               disabled={activeCardIndex === 0}
-              className="p-3 rounded-full bg-slate-800 text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-700 transition-colors"
+              className="p-3 rounded-full bg-slate-100 dark:bg-[#1a1a1a] text-slate-900 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-200 dark:hover:bg-[#2a2a2a] transition-colors border border-slate-200 dark:border-white/5"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <span className="text-slate-400 font-medium">
+            <span className="text-slate-500 dark:text-slate-400 font-bold tracking-widest text-sm">
               {activeCardIndex + 1} / {flashcards.length}
             </span>
             <button 
               onClick={nextCard} 
               disabled={activeCardIndex === flashcards.length - 1}
-              className="p-3 rounded-full bg-slate-800 text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-700 transition-colors"
+              className="p-3 rounded-full bg-slate-100 dark:bg-[#1a1a1a] text-slate-900 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-200 dark:hover:bg-[#2a2a2a] transition-colors border border-slate-200 dark:border-white/5"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
